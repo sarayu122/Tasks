@@ -1,0 +1,14 @@
+[project]
+name = "embedding-generation-model"
+version = "0.1.0"
+description = "Embedding generation project"
+readme = "README.md"
+requires-python = ">=3.12"
+
+dependencies = [
+    "langchain",
+    "langchain-openai",
+    "openai",
+    "python-dotenv",
+    "httpx"
+]
