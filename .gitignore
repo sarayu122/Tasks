@@ -1,5 +1,6 @@
 # env files
 .env
+*.env
 */.env
 */*/.env
 
@@ -7,10 +8,11 @@
 __pycache__/
 *.pyc
 
-# datasets
+# datasets (VERY IMPORTANT)
 *.csv
-Datasets/
+house_predict/
+movie_review/
 
-# virtual env
+# virtual environments
 .venv/
 venv/
