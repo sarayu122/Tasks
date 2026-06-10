@@ -1,219 +1,360 @@
-# Tasks Workspace — Consolidated README
+# ✦ Tasks Workspace — AI, ML & NLP Projects Collection
 
-This repository contains several small Python projects and experiments grouped into folders. This single README provides an overview of each project, key files, and basic run instructions.
+This repository contains multiple Python projects, experiments, and mini applications focused on:
+
+* Artificial Intelligence
+* Machine Learning
+* Natural Language Processing
+* Neural Networks
+* Prompt Engineering
+* Chatbots
+* Data Analysis
+
+The workspace is designed for learning, experimentation, and practical implementation using Python and modern AI frameworks.
 
 ---
 
-# Prerequisites
+# 🧠 Technologies Used
 
-* Python 3.8+ installed
+* Python 🐍
+* Streamlit 🎈
+* LangChain 🦜
+* Scikit-learn
+* OpenRouter API
+* Pydantic
+* NumPy
+* Pandas
+* Matplotlib
 
-## Create Virtual Environment (Recommended)
+---
 
-```bash id="9w4wz7"
-python -m venv .venv
+# 📂 Repository Structure
+
+```bash id="2zhfce"
+Tasks-Workspace/
+│
+├── chatbot-memory-model/
+├── chatbot-model/
+├── embedding-generation-model/
+├── Evaluation-metrics/
+├── house_predict/
+├── movie_review/
+├── multi-layer-nndl/
+├── single-layer-nndl/
+├── prompt-based-model/
+├── Iris_Classification/
+├── content-analyzer/
+├── data-extraction-agent/
+│
+└── README.md
 ```
 
-### Windows PowerShell
+---
 
-```powershell id="bxjlwm"
+# ⚙️ Prerequisites
+
+* Python 3.8 or higher
+* pip package manager
+
+---
+
+# 🔧 Create Virtual Environment (Recommended)
+
+## Windows PowerShell
+
+```powershell id="iy2pxd"
+python -m venv .venv
+
 .\.venv\Scripts\Activate.ps1
 ```
 
-### Windows CMD
+---
 
-```cmd id="mgtm26"
+## Windows CMD
+
+```cmd id="j4g3i0"
+python -m venv .venv
+
 .\.venv\Scripts\activate.bat
 ```
 
-### Unix / macOS
+---
 
-```bash id="ngtw7s"
+## Linux / macOS
+
+```bash id="uuxh9s"
+python -m venv .venv
+
 source .venv/bin/activate
 ```
 
 ---
 
-# Install Dependencies
+# 📦 Install Dependencies
 
-Install dependencies per project when available.
+Install dependencies individually for each project when `requirements.txt` is available.
 
 Example:
 
-```bash id="6vsm1o"
+```bash id="v49m36"
 pip install -r chatbot-model/requirements.txt
 ```
 
-For machine learning projects:
+For ML-based projects:
 
-```bash id="sjygul"
-pip install pandas numpy matplotlib seaborn scikit-learn
+```bash id="9v7dl3"
+pip install pandas numpy matplotlib scikit-learn
 ```
 
 ---
 
-# Projects
+# 🚀 Projects Overview
+
+---
+
+# 🤖 Chatbot Projects
+
+## chatbot-model/
+
+Basic chatbot implementation and UI experiments.
+
+### Main Files
+
+* `chatbot.py`
+* `uichatbot.py`
 
 ---
 
 ## chatbot-memory-model/
 
-Memory-focused chatbot experiments.
+Memory-enabled chatbot experiments using conversational memory.
 
-### Files
+### Main Files
 
-* `chatbot-memory.py` — memory-capable chatbot
-* `uichatbot_memory.py` — UI wrapper
-* `requirements.txt`
-* `pyproject.toml`
+* `chatbot-memory.py`
+* `uichatbot_memory.py`
 
 ---
 
-## chatbot-model/
+# 🧠 NLP & AI Projects
 
-Primary chatbot model experiments.
+## prompt-based-model/
 
-### Files
+Prompt engineering experiments using LLMs.
 
-* `chatbot.py` — chatbot implementation
-* `uichatbot.py` — UI/example runner
-* `requirements.txt`
-* `pyproject.toml`
+### Main Files
+
+* `prompt.py`
+* `promptui.py`
 
 ---
 
 ## embedding-generation-model/
 
-Embedding generation utilities.
+Text embedding generation utilities.
 
-### Files
+### Main Files
 
-* `embedding_generation.py` — generates embeddings from text
-* `requirements.txt`
-* `pyproject.toml`
+* `embedding_generation.py`
 
 ---
 
-## Evaluation-metrics/
+## content-analyzer/
 
-Evaluation metric implementations.
+AI-powered Streamlit application for analyzing stories, articles, and paragraphs.
 
-### Files
+### Features
 
-* `evaluationmetrics.py` — evaluation metric helpers
+* Summary generation
+* Theme extraction
+* Emotion & tone detection
+* Genre classification
+* Keyword extraction
+
+### Technologies
+
+* Streamlit
+* LangChain
+* OpenRouter API
+
+---
+
+## data-extraction-agent/
+
+AI-powered structured data extraction app for customer support messages.
+
+### Extracted Fields
+
+* Customer Name
+* Email Address
+* Order ID
+* Issue Type
+
+### Technologies
+
+* Streamlit
+* LangChain
+* Pydantic
+* OpenRouter API
+
+---
+
+# 📊 Machine Learning Projects
+
+## Iris_Classification/
+
+Classification experiments using the Iris dataset.
+
+### Main Files
+
+* `iris_loaddata.py`
+* `iris_sklearn.py`
 
 ---
 
 ## house_predict/
 
-Housing dataset experiments.
+Housing price prediction experiments.
 
-### Files
+### Main Files
 
-* `housenumber.py` — housing price prediction example
-* `AmesHousing.csv` — dataset used
+* `housenumber.py`
+
+Dataset included:
+
+* `AmesHousing.csv`
 
 ---
 
 ## movie_review/
 
-Movie review sentiment analysis experiments.
+Movie review sentiment analysis project.
 
-### Files
+### Main Files
 
-* `movie_review.py` — sentiment classification example
-* `IMDB_dataset.csv` — dataset
+* `movie_review.py`
+
+Dataset included:
+
+* `IMDB_dataset.csv`
+
+---
+
+# 🧮 Neural Network Projects
+
+## single-layer-nndl/
+
+Single-layer neural network implementation.
+
+### Main Files
+
+* `single_nndl.py`
 
 ---
 
 ## multi-layer-nndl/
 
-Multi-layer neural network experiments.
+Multi-layer neural network implementation.
 
-### Files
+### Main Files
 
-* `2-layer.py` — two-layer neural network implementation
-
----
-
-## single-layer-nndl/
-
-Single-layer neural network experiments.
-
-### Files
-
-* `single_nndl.py` — single-layer neural network implementation
+* `2-layer.py`
 
 ---
 
-## prompt-based-model/
+# 📏 Evaluation Metrics
 
-Prompt-engineering experiments.
+## Evaluation-metrics/
 
-### Files
+Utility functions and experiments for evaluation metrics.
 
-* `prompt.py` — prompt-based model
-* `promptui.py` — UI helper
-* `requirements.txt`
-* `pyproject.toml`
+### Main Files
 
----
-
-Iris_Classification/
-
-Machine Learning classification project using the Iris Dataset and Scikit-learn.
-
-Files
-iris_loaddata.py — loads Iris dataset from CSV file and trains ML models
-iris_sklearn.py — loads Iris dataset using Scikit-learn and trains ML models
-loaddataset.csv — Iris dataset CSV
-iris_dataset.csv — generated dataset CSV
+* `evaluationmetrics.py`
 
 ---
 
-# How to Run Scripts
+# ▶️ Running Projects
 
 Run scripts from the repository root.
 
 Examples:
 
-```bash id="h04yyn"
+```bash id="hh36gl"
 python chatbot-model/chatbot.py
+
 python embedding-generation-model/embedding_generation.py
+
 python house_predict/housenumber.py
-python single-layer-nndl/single_nndl.py
-python Iris_Classification/iris_loaddata.py
+
 python Iris_Classification/iris_sklearn.py
 ```
 
 ---
 
-# Notes & Tips
+# ▶️ Running Streamlit Applications
 
-* Many folders include their own `README.md` and dependency files.
-* Ensure CSV datasets are present before running scripts.
-* Activate virtual environment before running projects.
-* GUI wrappers may require additional setup depending on the project.
+## Content Analyzer
+
+```bash id="88bjlwm"
+streamlit run content-analyzer/app.py
+```
 
 ---
 
-# Learning Areas Covered
+## Data Extraction Agent
 
-This workspace includes projects related to:
+```bash id="2wdpsn"
+streamlit run data-extraction-agent/app.py
+```
+
+---
+
+# 📚 Learning Areas Covered
+
+This workspace includes practical projects related to:
 
 * Machine Learning
 * Neural Networks
-* Natural Language Processing
-* Embeddings
+* NLP
+* Chatbots
 * Prompt Engineering
-* Evaluation Metrics
 * Sentiment Analysis
+* Embeddings
+* Evaluation Metrics
 * Data Visualization
 * Classification Algorithms
-* Python UI Experiments
+* Streamlit UI Development
 
 ---
 
-# Conclusion
+# 📌 Notes
 
-This workspace serves as a collection of machine learning, NLP, neural network, and chatbot experiments for learning and practical implementation using Python and Scikit-learn.
+* Some projects include their own dependency files.
+* Ensure datasets are available before running scripts.
+* Activate the virtual environment before execution.
+* API-based projects require environment variables.
+
+---
+
+# 🔑 Environment Variables
+
+Create a `.env` file where required:
+
+```env id="4cwz4t"
+OPENROUTER_API_KEY=your_api_key_here
+```
+
+---
+
+# 👨‍💻 Purpose of This Repository
+
+This repository serves as a personal learning and experimentation workspace for:
+
+* AI & Machine Learning concepts
+* NLP applications
+* LLM integrations
+* Neural network implementation
+* Streamlit application development
+
+---
