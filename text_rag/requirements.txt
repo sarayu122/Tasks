@@ -1,0 +1,108 @@
+# Core LLM
+openai
+tiktoken
+
+# LangChain Ecosystem
+langchain
+langchain-community
+langchain-core
+langchain-text-splitters
+langchain-openai
+langchain-chroma
+
+# Vector Databases
+chromadb
+faiss-cpu
+pinecone
+weaviate-client
+qdrant-client
+
+# Embeddings
+sentence-transformers
+transformers
+torch
+
+# Document Processing
+pypdf
+pdfplumber
+pymupdf
+python-docx
+unstructured
+
+# OCR
+pytesseract
+Pillow
+
+# Data Processing
+pandas
+numpy
+
+# Web Scraping
+beautifulsoup4
+lxml
+requests
+httpx
+aiohttp
+
+# Website Loaders
+selenium
+playwright
+
+# API Framework
+fastapi
+uvicorn
+
+# Environment Variables
+python-dotenv
+
+# Validation
+pydantic
+
+# Tokenization
+nltk
+
+# Database
+sqlalchemy
+
+# Caching
+redis
+
+# Logging & Monitoring
+loguru
+
+# Evaluation
+ragas
+datasets
+
+# Utilities
+tqdm
+tenacity
+
+# Optional UI
+streamlit
+gradio
+
+# Async Support
+anyio
+
+# JSON Handling
+orjson
+
+# Testing
+pytest
+
+# OpenTelemetry (Optional)
+opentelemetry-api
+opentelemetry-sdk
+
+# Search
+duckduckgo-search
+
+# Knowledge Graphs
+networkx
+
+# Markdown
+markdown
+
+# YAML
+pyyaml

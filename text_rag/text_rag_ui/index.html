@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Knowledge Base RAG</title>
+    <link rel="preconnect" href__="https://fonts.googleapis.com" />
+    <link rel="preconnect" href__="https://fonts.gstatic.com" crossorigin />
+    <link href__="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg: #f4f5f9;
+        --card: #ffffff;
+        --fg: #1a1d28;
+        --muted: #6b7280;
+        --primary: #4f5de4;
+        --primary-hover: #3d4bc7;
+        --accent: #7c5ce7;
+        --border: #e0e3eb;
+        --radius: 16px;
+        --font-heading: 'Playfair Display', Georgia, serif;
+        --font-body: 'Inter', system-ui, sans-serif;
+        --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+      }
+
+      body {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--fg);
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      /* ── Animated background blobs ── */
+      .bg-blobs {
+        position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+      }
+      .bg-blob {
+        position: absolute; border-radius: 50%;
+        filter: blur(100px); opacity: 0.06;
+        animation: blobFloat 18s ease-in-out infinite;
+      }
+      .bg-blob:nth-child(1) {
+        width: 600px; height: 600px; top: -15%; right: -10%;
+        background: radial-gradient(circle, var(--primary), transparent 70%);
+        animation-delay: 0s;
+      }
+      .bg-blob:nth-child(2) {
+        width: 500px; height: 500px; bottom: -10%; left: -10%;
+        background: radial-gradient(circle, var(--accent), transparent 70%);
+        animation-delay: -8s;
+      }
+
+      @keyframes blobFloat {
+        0%, 100% { transform: scale(1) translate(0, 0); }
+        33% { transform: scale(1.1) translate(20px, -15px); }
+        66% { transform: scale(0.95) translate(-10px, 10px); }
+      }
+
+      /* ── Container ── */
+      .container {
+        position: relative; z-index: 1;
+        max-width: 720px; margin: 0 auto;
+        padding: 40px 24px;
+      }
+
+      /* ── Header ── */
+      .header { text-align: center; margin-bottom: 48px; }
+      .header-icon {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 64px; height: 64px; border-radius: 18px;
+        background: rgba(79,93,228,0.1); margin-bottom: 20px;
+      }
+      .header-icon svg { width: 32px; height: 32px; color: var(--primary); }
+      .header h1 {
+        font-family: var(--font-heading); font-size: 2.6rem;
+        font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px;
+      }
+      .header p { color: var(--muted); font-size: 1.05rem; max-width: 400px; margin: 0 auto; }
+
+      /* ── Steps ── */
+      .steps { display: flex; justify-content: center; gap: 32px; margin-bottom: 32px; }
+      .step {
+        display: flex; align-items: center; gap: 8px;
+        font-size: 0.85rem; color: var(--muted);
+      }
+      .step-num {
+        width: 32px; height: 32px; border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        background: #e8e9f0; font-weight: 600; font-size: 0.8rem;
+      }
+      .step.active .step-num { background: var(--primary); color: #fff; }
+      .step-arrow { color: var(--border); margin-left: 8px; }
+
+      /* ── Card ── */
+      .card {
+        background: var(--card); border-radius: var(--radius);
+        border: 1px solid var(--border); box-shadow: var(--shadow);
+        padding: 32px;
+      }
+
+      /* ── Inputs ── */
+      .input-name {
+        width: 100%; height: 48px; padding: 0 16px;
+        border: 1px solid var(--border); border-radius: 12px;
+        font-size: 1rem; font-family: var(--font-body);
+        background: var(--bg); margin-bottom: 16px;
+        transition: border-color 0.2s;
+      }
+      .input-name:focus { outline: none; border-color: var(--primary); }
+
+      .textarea-content {
+        width: 100%; min-height: 280px; padding: 16px;
+        border: 1px solid var(--border); border-radius: 12px;
+        font-size: 1rem; font-family: var(--font-body);
+        line-height: 1.7; background: var(--bg);
+        resize: vertical; transition: border-color 0.2s;
+      }
+      .textarea-content:focus { outline: none; border-color: var(--primary); }
+
+      .clear-text-btn {
+        margin-top: 12px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--muted);
+        padding: 10px 14px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: var(--font-body);
+        font-weight: 500;
+        transition: border-color 0.2s, color 0.2s, background 0.2s;
+      }
+
+      .clear-text-btn:hover {
+        border-color: var(--primary);
+        color: var(--fg);
+        background: #f7f8fd;
+      }
+
+      /* ── Stats ── */
+      .stats {
+        display: flex; align-items: center; gap: 12px;
+        margin-top: 12px; font-size: 0.8rem; color: var(--muted);
+      }
+      .stats-dot { color: var(--border); }
+      .chunk-badge {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 6px 16px; border-radius: 20px;
+        background: rgba(79,93,228,0.08); color: var(--primary);
+        font-weight: 500; font-size: 0.8rem;
+      }
+      .chunk-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+
+      /* ── Button ── */
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        width: 100%; height: 56px; margin-top: 24px;
+        border: none; border-radius: 14px;
+        background: var(--primary); color: #fff;
+        font-size: 1rem; font-weight: 600; font-family: var(--font-body);
+        cursor: pointer; transition: background 0.2s, transform 0.15s;
+      }
+      .btn:hover { background: var(--primary-hover); }
+      .btn:active { transform: scale(0.98); }
+      .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+      .spinner {
+        width: 20px; height: 20px; border: 2.5px solid rgba(255,255,255,0.3);
+        border-top-color: #fff; border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* ── Footer hint ── */
+      .footer-hint {
+        text-align: center; font-size: 0.75rem;
+        color: rgba(107,114,128,0.5); margin-top: 28px;
+      }
+
+      /* ═══════════════════════════════════════
+         PAGE 2 — Chat / Q&A
+         ═══════════════════════════════════════ */
+      .chat-page { display: none; flex-direction: column; min-height: 100vh; }
+      .chat-page.active { display: flex; }
+
+      .topbar {
+        position: sticky; top: 0; z-index: 10;
+        backdrop-filter: blur(14px); background: rgba(244,245,249,0.85);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 24px; display: flex; align-items: center;
+        justify-content: space-between;
+      }
+      .topbar-left { display: flex; align-items: center; gap: 12px; }
+      .back-btn {
+        width: 36px; height: 36px; border-radius: 12px; border: 1px solid var(--border);
+        background: var(--card); display: flex; align-items: center; justify-content: center;
+        cursor: pointer; font-size: 1.1rem; color: var(--fg); transition: background 0.2s;
+      }
+      .back-btn:hover { background: #f0f1f6; }
+      .topbar-title { font-family: var(--font-heading); font-weight: 600; font-size: 0.95rem; }
+      .topbar-meta { font-size: 0.75rem; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+      .clear-btn {
+        width: 36px; height: 36px; border-radius: 12px; border: none;
+        background: transparent; cursor: pointer; font-size: 1rem;
+        color: var(--muted); transition: color 0.2s;
+      }
+      .clear-btn:hover { color: #e74c3c; }
+
+      .history-item{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:12px;
+        border-bottom:1px solid #eee;
+        cursor:pointer;
+      }
+
+      .history-item:hover{
+        background:#f5f5f5;
+      }
+
+      .delete-chat-btn{
+        border:none;
+        background:none;
+        cursor:pointer;
+        color:red;
+      }
+
+      /* ── Chat area ── */
+      .chat-area { flex: 1; overflow-y: auto; padding: 24px; }
+      .chat-inner { max-width: 720px; margin: 0 auto; }
+
+      .welcome-chat { text-align: center; padding: 80px 24px; }
+      .welcome-chat h2 { font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 8px; }
+      .welcome-chat p { color: var(--muted); max-width: 380px; margin: 0 auto 24px; }
+      .hint-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+      .hint-chip {
+        padding: 10px 18px; border-radius: 20px; border: 1px solid var(--border);
+        background: var(--card); font-size: 0.85rem; color: var(--muted);
+        cursor: pointer; transition: border-color 0.2s, color 0.2s;
+      }
+      .hint-chip:hover { border-color: var(--primary); color: var(--fg); }
+
+      /* ── Messages ── */
+      .messages { display: flex; flex-direction: column; gap: 16px; }
+      .msg {
+        display: flex; gap: 10px;
+        animation: msgIn 0.3s ease;
+      }
+      @keyframes msgIn { from { opacity: 0; transform: translateY(10px); } }
+
+      .msg.user { flex-direction: row-reverse; }
+      .msg-avatar {
+        width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.75rem;
+      }
+      .msg.user .msg-avatar { background: var(--primary); color: #fff; }
+      .msg.assistant .msg-avatar { background: var(--accent); color: #fff; }
+
+      .msg-bubble {
+        max-width: 75%; padding: 14px 20px; border-radius: 18px;
+        font-size: 0.9rem; line-height: 1.65;
+      }
+      .msg.user .msg-bubble {
+        background: var(--primary); color: #fff;
+        border-bottom-right-radius: 6px;
+      }
+      .msg.assistant .msg-bubble {
+        background: var(--card); border: 1px solid var(--border);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        border-bottom-left-radius: 6px;
+      }
+      .msg.assistant .msg-bubble p { margin: 0 0 6px; }
+      .msg.assistant .msg-bubble p:last-child { margin-bottom: 0; }
+
+      .typing { padding: 18px 24px; }
+      .typing-dots { display: flex; gap: 4px; }
+      .typing-dots span {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--muted); animation: bounce 1.2s ease-in-out infinite;
+      }
+      .typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+      .typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+      @keyframes bounce {
+        0%, 60%, 100% { transform: translateY(0); }
+        30% { transform: translateY(-6px); }
+      }
+
+      /* ── Input bar ── */
+      .input-bar {
+        position: sticky; bottom: 0; z-index: 10;
+        backdrop-filter: blur(14px); background: rgba(244,245,249,0.85);
+        border-top: 1px solid var(--border); padding: 16px 24px;
+      }
+      .input-row {
+        max-width: 720px; margin: 0 auto;
+        display: flex; align-items: center; gap: 12px;
+      }
+      .input-question {
+        flex: 1; height: 48px; padding: 0 16px;
+        border: 1px solid var(--border); border-radius: 14px;
+        font-size: 0.95rem; font-family: var(--font-body);
+        background: var(--card); transition: border-color 0.2s;
+      }
+      .input-question:focus { outline: none; border-color: var(--primary); }
+      .send-btn {
+        width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+        border: none; background: var(--primary); color: #fff;
+        font-size: 1.2rem; cursor: pointer; transition: background 0.2s;
+      }
+      .send-btn:hover { background: var(--primary-hover); }
+      .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+      /* ── Responsive ── */
+      @media (max-width: 640px) {
+        .container { padding: 24px 16px; }
+        .header h1 { font-size: 1.8rem; }
+        .steps { gap: 16px; }
+        .step span.label { display: none; }
+        .card { padding: 20px; }
+        .chat-inner { padding: 0; }
+        .topbar { padding: 10px 16px; }
+        .input-bar { padding: 12px 16px; }
+        .msg-bubble { max-width: 85%; }
+        .btn { height: 50px; font-size: 0.95rem; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ── Page 1: Knowledge Input ── -->
+    <div id="page-input" class="page">
+      <div class="bg-blobs">
+        <div class="bg-blob"></div>
+        <div class="bg-blob"></div>
+      </div>
+      <div class="container">
+        <div class="header">
+          <div class="header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <h1>Knowledge Base</h1>
+          <p>Paste any text — articles, notes, documents — and ask questions about it using AI.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step active"><span class="step-num">1</span><span class="label">Paste Text</span></div>
+          <div class="step"><span class="step-num">2</span><span class="arrow">→</span><span class="label">Analyze</span></div>
+          <div class="step"><span class="step-num">3</span><span class="arrow">→</span><span class="label">Ask Questions</span></div>
+        </div>
+
+        <div class="card">
+          <input type="text" class="input-name" id="kb-title" placeholder="Give your knowledge base a name (optional)" />
+          <textarea class="textarea-content" id="kb-text" placeholder="Paste your text here — articles, research papers, notes, documentation, or any content you want to query..."></textarea>
+          <button type="button" id="clear-text-btn" class="clear-text-btn">Clear Text</button>
+
+          <div class="stats">
+            <span id="stat-words">0 words</span>
+            <span class="stats-dot">·</span>
+            <span id="stat-chars">0 characters</span>
+            <span class="stats-dot" id="chunk-dot" style="display:none">·</span>
+            <span id="chunk-badge" class="chunk-badge" style="display:none"><span class="chunk-dot"></span> <span id="chunk-count">0</span> chunks</span>
+          </div>
+
+          <button class="btn" id="analyze-btn" disabled>
+            <svg id="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span id="btn-text">Analyze &amp; Start Asking</span>
+            <div class="spinner" id="btn-spinner" style="display:none"></div>
+          </button>
+        </div>
+
+        <p class="footer-hint">Your text is split into smart chunks for accurate retrieval-augmented answers.</p>
+      </div>
+    </div>
+
+    <!-- ── Page 2: Chat / Q&A ── -->
+    <div id="page-chat" class="page" style="display:none">
+
+  <div style="display:flex;height:100vh;">
+
+    <!-- Sidebar -->
+    <div id="sidebar"
+         style="width:280px;
+                border-right:1px solid #ddd;
+                background:white;
+                overflow-y:auto;">
+
+      <div style="padding:15px;font-weight:bold;">
+        Chat History
+      </div>
+
+      <div id="history-list"></div>
+
+    </div>
+
+    <!-- Main Chat -->
+    <div style="flex:1;display:flex;flex-direction:column;">
+
+      <div class="topbar">
+        <div class="topbar-left">
+          <button class="back-btn" id="back-btn">←</button>
+
+          <div>
+            <div class="topbar-title" id="chat-title">
+              Knowledge Base
+            </div>
+
+            <div class="topbar-meta" id="chat-meta"></div>
+          </div>
+        </div>
+
+        <button
+          class="clear-btn"
+          id="clear-chat-btn"
+          title="Clear chat">
+          🗑
+        </button>
+      </div>
+
+      <div class="chat-area" id="chat-area">
+
+        <div class="chat-inner" id="chat-inner">
+
+          <div class="welcome-chat" id="welcome-screen">
+
+            <h2>Ready to Answer</h2>
+
+            <p>
+              Your knowledge base is loaded.
+              Ask anything about the content.
+            </p>
+
+            <div class="hint-chips">
+              <span class="hint-chip"
+                    data-question="Summarize the main points">
+                Summarize the main points
+              </span>
+
+              <span class="hint-chip"
+                    data-question="What are the key takeaways?">
+                What are the key takeaways?
+              </span>
+
+              <span class="hint-chip"
+                    data-question="Explain the core concepts">
+                Explain the core concepts
+              </span>
+            </div>
+
+          </div>
+
+          <div class="messages" id="messages"></div>
+
+        </div>
+
+      </div>
+
+      <div class="input-bar">
+
+        <div class="input-row">
+
+          <input
+            type="text"
+            class="input-question"
+            id="question-input"
+            placeholder="Ask a question about your text..." />
+
+          <button
+            class="send-btn"
+            id="send-btn"
+            disabled>
+            ↑
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+    <script src="/script.js"></script>
+  </body>
+</html>
