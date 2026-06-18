@@ -1,53 +1,53 @@
 # ✦ Tasks Workspace — AI, ML & NLP Projects Collection
 
-This workspace contains a set of small projects, experiments, and utilities for
-learning and prototyping in AI, machine learning, and natural language
-processing. Each project is kept in its own folder and may include a
-`requirements.txt` or README where appropriate.
+This workspace is a collection of small, focused projects for learning and
+prototyping in AI, machine learning, and NLP. Each project lives in its own
+folder and includes a README describing purpose, how to run it, and key
+implementation notes.
 
 ---
 
-## Current Top-Level Folders
+## Projects (short summaries)
 
-The repository root contains the following project folders (listed with a
-short description when available):
+- `chatbot-memory-model/` — Memory-enabled Streamlit chatbot (Savage AI).
+- `chatbot-model/` — Streamlit chatbot demo with a custom personality (RudeBot).
+- `embedding-generation-model/` — Embeddings example using LangChain + OpenRouter.
+- `Evaluation-metrics/` — NumPy implementations of binary classification metrics.
+- `house_predict/` — Housing price experiments (AmesHousing dataset).
+- `Iris_Classification/` — Iris dataset classification with Logistic Regression,
+	Decision Tree, and Random Forest examples.
+- `movie_review/` — IMDB sentiment classification scripts.
+- `multi-layer-nndl/` — 2-layer neural network (PyTorch) example.
+- `prompttemplate_and_structured output/` — Streamlit apps for content analysis
+	and structured information extraction.
+- `single-layer-nndl/` — Single-layer (NumPy) feedforward neural net example.
+- `text_rag/` — Retrieval-Augmented Generation (RAG) pipeline with ChromaDB and
+	a small UI in `text_rag/text_rag_ui/`.
 
-- `chatbot-memory-model/` — memory-enabled chatbot experiments
-- `chatbot-model/` — basic chatbot experiments and UI
-- `embedding-generation-model/` — utilities for generating text embeddings
-- `Evaluation-metrics/` — evaluation utilities and experiments
-- `house_predict/` — housing price prediction experiments (AmesHousing.csv)
-- `Iris_Classification/` — Iris dataset classification examples
-- `movie_review/` — sentiment analysis on movie reviews (IMDB dataset)
-- `multi-layer-nndl/` — multi-layer neural network example
-- `prompttemplate_and_structured output/` — prompt template and structured-output examples
-- `single-layer-nndl/` — single-layer neural network example
-- `text_rag/` — RAG-related scripts and a small UI app
-
-If a folder contains a README, prefer opening that README for per-project
-instructions.
+Open a project's own `README.md` for full details and project-specific commands.
 
 ---
 
-## Quick Setup (global)
-
-These are general suggestions — each project may have its own requirements.
+## Quick global setup
 
 1. Create and activate a virtual environment:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate   # macOS / Linux
-.\\.venv\\Scripts\\activate  # Windows PowerShell
+# macOS / Linux
+source .venv/bin/activate
+# Windows PowerShell
+.\.venv\Scripts\activate
 ```
 
-2. Install only the packages you need for a project. Example:
+2. Install only what you need per project, for example:
 
 ```bash
 pip install -r text_rag/requirements.txt
 ```
 
-3. Set environment variables (if required by a project):
+3. If a project requires an API key (OpenRouter), set it with an env var or
+	 a local `.env` file (do not commit secrets):
 
 ```bash
 export OPENROUTER_API_KEY=your_api_key_here  # macOS / Linux
@@ -56,47 +56,44 @@ setx OPENROUTER_API_KEY "your_api_key_here"  # Windows (persist)
 
 ---
 
-## How to run each project
+## How to run selected projects
 
-Open the folder for the project you want to run and look for `README.md`,
-`requirements.txt`, or example run commands. A few examples from this workspace:
-
-- CLI RAG script:
+- Text RAG (CLI):
 
 ```bash
 python text_rag/txtrag.py
 ```
 
-- Start the small UI for Text RAG (Flask server):
+- Text RAG UI (Flask):
 
 ```bash
 python text_rag/text_rag_ui/textragui.py
-# then open http://127.0.0.1:5000 in your browser
+# open http://127.0.0.1:5000
 ```
 
-- Run the Iris classification example:
+- Iris classification examples:
 
 ```bash
 python Iris_Classification/iris_sklearn.py
+python Iris_Classification/iris_loaddata.py
+```
+
+- NYC Taxi cleaning & viz (see project README for thresholds):
+
+```bash
+python "NYC taxi dataset cleaning/clean_data.py"
+python "NYC taxi dataset cleaning/visualization.py"
 ```
 
 ---
 
-## Notes and recommendations
+## Recommendations & next steps
 
-- Many projects include their own dependency lists: check each project's
-	`requirements.txt` before installing.
-- Keep sensitive keys out of source control — use a local `.env` file or your
-	system environment variables.
-- If you want a consolidated setup for one project, open its folder and follow
-	the project-specific README.
+- Check each project's `requirements.txt` before installing dependencies.
+- Keep API keys out of source control; use `.env` or environment variables.
+- I can:
+	- regenerate missing per-project `README.md` files,
+	- create `requirements.txt` for projects that lack them,
+	- add a consolidated `run_all.sh`/`run_all.ps1` to demonstrate quick runs.
 
----
-
-If you'd like, I can:
-
-- Add or refresh missing per-project `README.md` files.
-- Create a short index file with direct run commands for each project.
-- Generate `requirements.txt` files for projects that lack them.
-
-Tell me which option you'd like next.
+If you want, tell me which of the options above to do next and I'll implement it.
