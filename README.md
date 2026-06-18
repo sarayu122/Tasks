@@ -1,360 +1,102 @@
 # ✦ Tasks Workspace — AI, ML & NLP Projects Collection
 
-This repository contains multiple Python projects, experiments, and mini applications focused on:
-
-* Artificial Intelligence
-* Machine Learning
-* Natural Language Processing
-* Neural Networks
-* Prompt Engineering
-* Chatbots
-* Data Analysis
-
-The workspace is designed for learning, experimentation, and practical implementation using Python and modern AI frameworks.
+This workspace contains a set of small projects, experiments, and utilities for
+learning and prototyping in AI, machine learning, and natural language
+processing. Each project is kept in its own folder and may include a
+`requirements.txt` or README where appropriate.
 
 ---
 
-# 🧠 Technologies Used
+## Current Top-Level Folders
 
-* Python 🐍
-* Streamlit 🎈
-* LangChain 🦜
-* Scikit-learn
-* OpenRouter API
-* Pydantic
-* NumPy
-* Pandas
-* Matplotlib
+The repository root contains the following project folders (listed with a
+short description when available):
 
----
+- `chatbot-memory-model/` — memory-enabled chatbot experiments
+- `chatbot-model/` — basic chatbot experiments and UI
+- `embedding-generation-model/` — utilities for generating text embeddings
+- `Evaluation-metrics/` — evaluation utilities and experiments
+- `house_predict/` — housing price prediction experiments (AmesHousing.csv)
+- `Iris_Classification/` — Iris dataset classification examples
+- `movie_review/` — sentiment analysis on movie reviews (IMDB dataset)
+- `multi-layer-nndl/` — multi-layer neural network example
+- `prompttemplate_and_structured output/` — prompt template and structured-output examples
+- `single-layer-nndl/` — single-layer neural network example
+- `text_rag/` — RAG-related scripts and a small UI app
 
-# 📂 Repository Structure
-
-```bash id="2zhfce"
-Tasks-Workspace/
-│
-├── chatbot-memory-model/
-├── chatbot-model/
-├── embedding-generation-model/
-├── Evaluation-metrics/
-├── house_predict/
-├── movie_review/
-├── multi-layer-nndl/
-├── single-layer-nndl/
-├── prompt-based-model/
-├── Iris_Classification/
-├── content-analyzer/
-├── data-extraction-agent/
-│
-└── README.md
-```
+If a folder contains a README, prefer opening that README for per-project
+instructions.
 
 ---
 
-# ⚙️ Prerequisites
+## Quick Setup (global)
 
-* Python 3.8 or higher
-* pip package manager
+These are general suggestions — each project may have its own requirements.
 
----
+1. Create and activate a virtual environment:
 
-# 🔧 Create Virtual Environment (Recommended)
-
-## Windows PowerShell
-
-```powershell id="iy2pxd"
+```bash
 python -m venv .venv
+source .venv/bin/activate   # macOS / Linux
+.\\.venv\\Scripts\\activate  # Windows PowerShell
+```
 
-.\.venv\Scripts\Activate.ps1
+2. Install only the packages you need for a project. Example:
+
+```bash
+pip install -r text_rag/requirements.txt
+```
+
+3. Set environment variables (if required by a project):
+
+```bash
+export OPENROUTER_API_KEY=your_api_key_here  # macOS / Linux
+setx OPENROUTER_API_KEY "your_api_key_here"  # Windows (persist)
 ```
 
 ---
 
-## Windows CMD
+## How to run each project
 
-```cmd id="j4g3i0"
-python -m venv .venv
+Open the folder for the project you want to run and look for `README.md`,
+`requirements.txt`, or example run commands. A few examples from this workspace:
 
-.\.venv\Scripts\activate.bat
+- CLI RAG script:
+
+```bash
+python text_rag/txtrag.py
 ```
 
----
+- Start the small UI for Text RAG (Flask server):
 
-## Linux / macOS
-
-```bash id="uuxh9s"
-python -m venv .venv
-
-source .venv/bin/activate
+```bash
+python text_rag/text_rag_ui/textragui.py
+# then open http://127.0.0.1:5000 in your browser
 ```
 
----
+- Run the Iris classification example:
 
-# 📦 Install Dependencies
-
-Install dependencies individually for each project when `requirements.txt` is available.
-
-Example:
-
-```bash id="v49m36"
-pip install -r chatbot-model/requirements.txt
-```
-
-For ML-based projects:
-
-```bash id="9v7dl3"
-pip install pandas numpy matplotlib scikit-learn
-```
-
----
-
-# 🚀 Projects Overview
-
----
-
-# 🤖 Chatbot Projects
-
-## chatbot-model/
-
-Basic chatbot implementation and UI experiments.
-
-### Main Files
-
-* `chatbot.py`
-* `uichatbot.py`
-
----
-
-## chatbot-memory-model/
-
-Memory-enabled chatbot experiments using conversational memory.
-
-### Main Files
-
-* `chatbot-memory.py`
-* `uichatbot_memory.py`
-
----
-
-# 🧠 NLP & AI Projects
-
-## prompt-based-model/
-
-Prompt engineering experiments using LLMs.
-
-### Main Files
-
-* `prompt.py`
-* `promptui.py`
-
----
-
-## embedding-generation-model/
-
-Text embedding generation utilities.
-
-### Main Files
-
-* `embedding_generation.py`
-
----
-
-## content-analyzer/
-
-AI-powered Streamlit application for analyzing stories, articles, and paragraphs.
-
-### Features
-
-* Summary generation
-* Theme extraction
-* Emotion & tone detection
-* Genre classification
-* Keyword extraction
-
-### Technologies
-
-* Streamlit
-* LangChain
-* OpenRouter API
-
----
-
-## data-extraction-agent/
-
-AI-powered structured data extraction app for customer support messages.
-
-### Extracted Fields
-
-* Customer Name
-* Email Address
-* Order ID
-* Issue Type
-
-### Technologies
-
-* Streamlit
-* LangChain
-* Pydantic
-* OpenRouter API
-
----
-
-# 📊 Machine Learning Projects
-
-## Iris_Classification/
-
-Classification experiments using the Iris dataset.
-
-### Main Files
-
-* `iris_loaddata.py`
-* `iris_sklearn.py`
-
----
-
-## house_predict/
-
-Housing price prediction experiments.
-
-### Main Files
-
-* `housenumber.py`
-
-Dataset included:
-
-* `AmesHousing.csv`
-
----
-
-## movie_review/
-
-Movie review sentiment analysis project.
-
-### Main Files
-
-* `movie_review.py`
-
-Dataset included:
-
-* `IMDB_dataset.csv`
-
----
-
-# 🧮 Neural Network Projects
-
-## single-layer-nndl/
-
-Single-layer neural network implementation.
-
-### Main Files
-
-* `single_nndl.py`
-
----
-
-## multi-layer-nndl/
-
-Multi-layer neural network implementation.
-
-### Main Files
-
-* `2-layer.py`
-
----
-
-# 📏 Evaluation Metrics
-
-## Evaluation-metrics/
-
-Utility functions and experiments for evaluation metrics.
-
-### Main Files
-
-* `evaluationmetrics.py`
-
----
-
-# ▶️ Running Projects
-
-Run scripts from the repository root.
-
-Examples:
-
-```bash id="hh36gl"
-python chatbot-model/chatbot.py
-
-python embedding-generation-model/embedding_generation.py
-
-python house_predict/housenumber.py
-
+```bash
 python Iris_Classification/iris_sklearn.py
 ```
 
 ---
 
-# ▶️ Running Streamlit Applications
+## Notes and recommendations
 
-## Content Analyzer
-
-```bash id="88bjlwm"
-streamlit run content-analyzer/app.py
-```
-
----
-
-## Data Extraction Agent
-
-```bash id="2wdpsn"
-streamlit run data-extraction-agent/app.py
-```
+- Many projects include their own dependency lists: check each project's
+	`requirements.txt` before installing.
+- Keep sensitive keys out of source control — use a local `.env` file or your
+	system environment variables.
+- If you want a consolidated setup for one project, open its folder and follow
+	the project-specific README.
 
 ---
 
-# 📚 Learning Areas Covered
+If you'd like, I can:
 
-This workspace includes practical projects related to:
+- Add or refresh missing per-project `README.md` files.
+- Create a short index file with direct run commands for each project.
+- Generate `requirements.txt` files for projects that lack them.
 
-* Machine Learning
-* Neural Networks
-* NLP
-* Chatbots
-* Prompt Engineering
-* Sentiment Analysis
-* Embeddings
-* Evaluation Metrics
-* Data Visualization
-* Classification Algorithms
-* Streamlit UI Development
-
----
-
-# 📌 Notes
-
-* Some projects include their own dependency files.
-* Ensure datasets are available before running scripts.
-* Activate the virtual environment before execution.
-* API-based projects require environment variables.
-
----
-
-# 🔑 Environment Variables
-
-Create a `.env` file where required:
-
-```env id="4cwz4t"
-OPENROUTER_API_KEY=your_api_key_here
-```
-
----
-
-# 👨‍💻 Purpose of This Repository
-
-This repository serves as a personal learning and experimentation workspace for:
-
-* AI & Machine Learning concepts
-* NLP applications
-* LLM integrations
-* Neural network implementation
-* Streamlit application development
-
----
+Tell me which option you'd like next.
