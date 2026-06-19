@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="card chat-header">
+    <div>
+      <p class="section-label">Chat</p>
+      <h2>{{ document_name }}</h2>
+      <p class="lead">Indexed chunks: {{ chunk_count }}</p>
+    </div>
+    <a class="secondary link-button" href="{{ url_for('upload') }}">Upload another file</a>
+  </section>
+
+  <section class="card chat-window">
+    <div class="messages">
+      {% if chat_history %}
+        {% for message in chat_history %}
+          <div class="message {{ message.role }}">
+            <span class="role">{{ message.role.title() }}</span>
+            <p>{{ message.content }}</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state">
+          <h3>Ask the first question</h3>
+          <p>The assistant will answer from the uploaded document and show supporting chunks when available.</p>
+        </div>
+      {% endif %}
+      {% if answer %}
+        <div class="message assistant">
+          <span class="role">Assistant</span>
+          <p>{{ answer }}</p>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if sources %}
+      <div class="sources">
+        <h3>Retrieved chunks</h3>
+        <ul>
+          {% for item in sources %}
+            <li>{{ item.source }} - chunk {{ item.chunk_number }} - score {{ item.score }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form class="question-form" method="post">
+      <label for="question">Your question</label>
+      <textarea id="question" name="question" rows="4" placeholder="Ask something about the uploaded document..." required></textarea>
+      <button type="submit">Ask</button>
+    </form>
+  </section>
+{% endblock %}

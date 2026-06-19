@@ -1,0 +1,248 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f1ea;
+  --panel: rgba(255, 255, 255, 0.78);
+  --panel-strong: #ffffff;
+  --text: #122033;
+  --muted: #5e6b7f;
+  --line: rgba(18, 32, 51, 0.12);
+  --accent: #115e59;
+  --accent-strong: #0f766e;
+  --accent-soft: #d9f3ef;
+  --shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(17, 94, 89, 0.12), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.1), transparent 30%),
+    var(--bg);
+}
+
+.shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 32px auto 48px;
+}
+
+.topbar,
+.card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-radius: 24px;
+  margin-bottom: 20px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+h1 {
+  margin-bottom: 4px;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+}
+
+.eyebrow,
+.section-label {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.card {
+  border-radius: 28px;
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.hero,
+.chat-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
+  gap: 24px;
+  align-items: end;
+}
+
+.lead,
+.note-grid p,
+.sources,
+.empty-state p,
+.message p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.upload-form,
+.question-form {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 22px;
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+}
+
+label {
+  font-weight: 700;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+input[type="file"],
+textarea {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(18, 32, 51, 0.14);
+  padding: 14px 16px;
+  font: inherit;
+  background: #fff;
+  color: var(--text);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+button,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 12px 18px;
+  font: 700 0.98rem/1 "Trebuchet MS", "Segoe UI", sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+}
+
+.secondary {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.link-button {
+  align-self: start;
+}
+
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.chat-window {
+  display: grid;
+  gap: 20px;
+}
+
+.messages {
+  display: grid;
+  gap: 14px;
+}
+
+.message,
+.empty-state {
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--line);
+}
+
+.message.user {
+  margin-left: 8%;
+  background: #eff7f5;
+}
+
+.message.assistant {
+  margin-right: 8%;
+}
+
+.role {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-strong);
+}
+
+.sources ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.flash-stack {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.flash {
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.flash.error {
+  border-color: rgba(180, 36, 36, 0.25);
+  background: rgba(255, 235, 235, 0.95);
+}
+
+.flash.success {
+  border-color: rgba(18, 110, 98, 0.25);
+  background: rgba(232, 250, 247, 0.95);
+}
+
+@media (max-width: 860px) {
+  .hero,
+  .chat-header,
+  .note-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .message.user,
+  .message.assistant {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

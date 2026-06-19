@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="card hero">
+    <div>
+      <p class="section-label">Upload</p>
+      <h2>Drop one document and start asking questions.</h2>
+      <p class="lead">PDF, TXT, and DOCX are supported. The file is chunked, embedded with a Hugging Face model, stored in Pinecone, and then used for grounded answers.</p>
+    </div>
+
+    <form class="upload-form" method="post" enctype="multipart/form-data">
+      <label for="document">Select document</label>
+      <input id="document" name="document" type="file" accept=".pdf,.txt,.docx" required>
+      <button type="submit">Upload and index</button>
+    </form>
+  </section>
+
+  <section class="card note-grid">
+    <div>
+      <h3>How it works</h3>
+      <p>Upload a file, index it into Pinecone, and the app redirects you to a chat page that only answers from that document.</p>
+    </div>
+    <div>
+      <h3>Current document</h3>
+      <p>{% if document_name %}{{ document_name }}{% else %}No document uploaded yet.{% endif %}</p>
+    </div>
+  </section>
+{% endblock %}
