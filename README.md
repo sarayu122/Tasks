@@ -23,6 +23,8 @@ implementation notes.
 - `single-layer-nndl/` — Single-layer (NumPy) feedforward neural net example.
 - `text_rag/` — Retrieval-Augmented Generation (RAG) pipeline with ChromaDB and
 	a small UI in `text_rag/text_rag_ui/`.
+- `document_RAG/` — Flask-based Document RAG: upload a PDF/TXT/DOCX, index
+	chunks into Pinecone, and ask questions grounded in the uploaded document.
 
 Open a project's own `README.md` for full details and project-specific commands.
 
@@ -70,6 +72,23 @@ python text_rag/txtrag.py
 python text_rag/text_rag_ui/textragui.py
 # open http://127.0.0.1:5000
 ```
+
+- Document RAG (Flask):
+
+```bash
+# from the workspace root
+cd document_RAG
+pip install -r requirements.txt
+# copy the example env and fill in your keys (PINECONE_API_KEY, OPENROUTER_API_KEY)
+# Windows PowerShell:
+Copy-Item .env.example .env
+# macOS / Linux:
+cp .env.example .env
+python app.py
+# open http://127.0.0.1:5000 in your browser
+```
+
+Note: the Hugging Face embedding model will be downloaded on first run and may take extra time and memory.
 
 - Iris classification examples:
 
